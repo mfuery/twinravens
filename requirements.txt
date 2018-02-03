@@ -1,0 +1,6 @@
+django
+django-redis
+psycopg2
+ipython
+djangorestframework
+django-webpack-loader
