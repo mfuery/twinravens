@@ -1,0 +1,13 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Hi from the app</p>
+{% render_bundle 'main' %}
+</body>
+</html>

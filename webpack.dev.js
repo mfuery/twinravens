@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common');
 const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
-const BUILD_DIR = path.resolve(__dirname, 'js/build');
+const BUILD_DIR = path.resolve(__dirname, 'assets/js/build');
 // let APP_DIR = path.resolve(__dirname, 'js/src');
 
 const config = merge.strategy({
@@ -36,7 +36,7 @@ const config = merge.strategy({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new BundleTracker({filename: './webpack-stats-dev.json'})
-  ],
+  ]
 });
 
 module.exports = config;

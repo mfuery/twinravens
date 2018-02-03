@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
-const BUILD_DIR = path.resolve(__dirname, 'js/build');
-const APP_DIR = path.resolve(__dirname, 'js/src');
+const BUILD_DIR = path.resolve(__dirname, 'assets/js/build');
+const APP_DIR = path.resolve(__dirname, 'assets/js');
 
 const config = {
   context: __dirname,
