@@ -1,4 +1,4 @@
-import ffux from 'ffux';
+import ffux from './ffux';
 import React from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Listener from './listener';
