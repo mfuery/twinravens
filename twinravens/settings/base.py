@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def base_dir_join(*args):
     return os.path.join(BASE_DIR, *args)
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
 
     'webpack_loader',
     'rest_framework',
+    'core',
 
 ]
 
@@ -62,7 +62,9 @@ ROOT_URLCONF = 'twinravens.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'core', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
