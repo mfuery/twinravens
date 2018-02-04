@@ -1,7 +1,7 @@
 {% load static %}
 {% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
-<html lang="en" class="use-all-space">
+<html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta charset='UTF-8'>
@@ -21,10 +21,40 @@
             flex: auto;
             margin-left: 10px;
         }
+        #parent {
+            min-width: 400px;
+            min-height: 400px;
+            height: 400px;
+            width: 100%;
+        }
     </style>
 </head>
-<body class="use-all-space">
+<body>
 <div id="root"></div>
+{#<div id='map' class='use-all-space'></div>#}
+{#    <script>#}
+{#        // Define your product name and version#}
+{#        tomtom.setProductInfo('Twin Ravens', '0.0.1');#}
+{#        var map = tomtom.map('map', {#}
+{#            key: 'c26Y46QwvfTgsAirK4Nh0w8YokZJ3XGq',#}
+{#            source: 'vector',#}
+{#            basePath: '/static'#}
+{#        });#}
+{##}
+{#        var languageLabel = L.DomUtil.create('label');#}
+{#        languageLabel.innerHTML = 'Maps language';#}
+{#        var languageSelector = tomtom.languageSelector.getHtmlElement(tomtom.globalLocaleService, 'maps');#}
+{#        languageLabel.appendChild(languageSelector);#}
+{#        tomtom.controlPanel({#}
+{#            position: 'bottomright',#}
+{#            title: 'Settings',#}
+{#            collapsed: true,#}
+{#            closeOnMapClick: false#}
+{#        })#}
+{#            .addTo(map)#}
+{#            .addContent(languageLabel);#}
+{##}
+{#    </script>#}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 {% render_bundle 'main' %}
 </body>

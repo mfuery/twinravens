@@ -5,6 +5,14 @@ import Listener from './listener';
 import Dash from './views/dash.jsx';
 import TopNav from './views/topnav.jsx';
 import TripStore from './stores/tripStore';
+import wrapper from './views/map.jsx';
+
+class Container extends React.Component {
+  render() {
+    return <div>TomTom Map</div>;
+  }
+}
+const TomTom = wrapper({apiKey: 'c26Y46QwvfTgsAirK4Nh0w8YokZJ3XGq'})(Container);
 
 
 class App extends Listener {
@@ -18,6 +26,8 @@ class App extends Listener {
           <Route exact path={'/'} component={() => <Dash
             tripStore={this.state.model.state.tripStore}
           />}/>
+          <Route exact path={'/maptest'}
+                 component={() => <TomTom/>} />
           {/*<Route path={urls.ESTIMATES} component={() => <SampleCompoent*/}
           {/*/>}/>*/}
         </Switch>
