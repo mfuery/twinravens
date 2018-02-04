@@ -21,6 +21,7 @@ export const wrapper = (options) => (WrappedComponent) => {
     componentDidMount() {
       const refs = this.refs;
       const tomtom = window.tomtom;
+      this.tomtom = tomtom;
       const props = Object.assign({}, this.props, {
         loaded: this.state.loaded
       });
@@ -31,12 +32,15 @@ export const wrapper = (options) => (WrappedComponent) => {
       // center
 
       // map config
+      const center = this.props.center || [41, -96];
 
       tomtom.setProductInfo('Twin Ravens', '0.0.1');
+      tomtom.routingKey(apiKey);
+      tomtom.searchKey(apiKey);
       this.map = tomtom.map(node, {
         key: apiKey,
-        center: [41, -96],  // America
-        zoom: 4,
+        center: center,  // America
+        zoom: 8,
         layers: [
           tomtom.L.tileLayer.wms(`https://api.tomtom.com/map/1/wms/?key=${apiKey}`, {
             layers: 'basic',
@@ -46,6 +50,16 @@ export const wrapper = (options) => (WrappedComponent) => {
         source: 'vector',
         basePath: '/static'
       });
+
+      tomtom.routeOnMap({
+        onEachFeature: this.bindPopups.bind(this),
+        serviceOptions: {
+          maxAlternatives: 2,
+          traffic: true
+        }
+      })
+        .addTo(this.map)
+        .draw(this.props.locations);
 
       this.setState({
         loaded: true,
@@ -59,6 +73,24 @@ export const wrapper = (options) => (WrappedComponent) => {
       //     apiKey: apiKey
       //   })
       // });
+    }
+    buildPopupMessage({lengthInMeters, travelTimeInSeconds, trafficDelayInSeconds}) {
+      const distance = tomtom.unitFormatConverter.formatDistance(lengthInMeters);
+      const time = tomtom.unitFormatConverter.formatTime(travelTimeInSeconds);
+      const delay = tomtom.unitFormatConverter.formatTime(trafficDelayInSeconds);
+      return [
+        `Distance: ${distance}`,
+        `Estimated travel time: ${time}`,
+        `Traffic delay: ${delay}`,
+      ].join('<br/>');
+    }
+    bindPopups(feature, layer) {
+      layer.on('mouseover', e => {
+        this.tomtom.L.popup()
+          .setLatLng(e.latlng)
+          .setContent(this.buildPopupMessage(feature.properties.summary))
+          .openOn(this.map);
+      });
     }
     render() {
       const props = Object.assign({}, this.props, {
