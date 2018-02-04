@@ -6,7 +6,7 @@ import kefir from 'kefir';
 export default createStore({
   actions: ['createTrip', 'searchLoc', 'getItin'],
   state: (initialState, {createTrip, searchLoc, getItin}) => {
-    let init = ajax('/api/everything', null, 'GET').map(x => x);
+    let init = ajax('/api/everything/', null, 'GET').map(x => x);
 
     let searchLocStream = searchLoc.flatMap(x => {
       let p = tomtom.fuzzySearch().key("c26Y46QwvfTgsAirK4Nh0w8YokZJ3XGq").query(x).go();
@@ -23,7 +23,7 @@ export default createStore({
     });
 
     let getItinStream = getItin.flatMap(x => {
-      return ajax(`/api/trip-itinerary/${x}`, null, 'GET');
+      return ajax(`/api/trip-itinerary/${x}/`, null, 'GET');
     });
 
     return transform({
