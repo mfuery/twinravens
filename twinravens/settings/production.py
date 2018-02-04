@@ -60,7 +60,7 @@ WEBPACK_LOADER = {
 
 WEBPACK_LOADER.update({
     'PROD': {
-        'BUNDLE_DIR_NAME': base_dir_join(BASE_DIR, 'assets', 'js', 'build'),
+        'BUNDLE_DIR_NAME': base_dir_join(BASE_DIR, 'assets', 'js', 'build/'),
         'STATS_FILE': base_dir_join('webpack-stats-prod.json')
     }
 })
