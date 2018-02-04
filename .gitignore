@@ -6,3 +6,4 @@ node_modules
 webpack-stats.json
 webpack-stats-dev.json
 css/
+*.log
