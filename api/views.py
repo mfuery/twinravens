@@ -5,9 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.models import Location, Stop, Trip, User, Gps
-from core.serializers import GuestSerializer, GpsSerializer
 from .serializers import LocationSerializer, StopSerializer, TripSerializer, \
-    UserSerializer
+    UserSerializer, GpsSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -60,7 +59,7 @@ def everything(request):
     locations = Location.objects.all()
     return Response({
         'trips': TripSerializer(trips, many=True).data,
-        'users': GuestSerializer(users, many=True).data,
+        'users': UserSerializer(users, many=True).data,
         'stops': StopSerializer(stops, many=True).data,
         'locations': LocationSerializer(locations, many=True).data,
     })
