@@ -6,32 +6,22 @@ from core.models import Location, Stop, Trip, User
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = (
-            'id', 'email', 'name', 'phone', 'profile_picture', 'friends',
-            'date_joined',
-        )
+        fields = '__all__'
 
 
 class StopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stop
-        fields = (
-            'id', 'location', 'when',
-        )
+        fields = '__all__'
 
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = (
-            'id', 'name', 'address', 'icon', 'lat', 'lon',
-        )
+        fields = '__all__'
 
 
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = (
-            'id', 'name', 'start_datetime', 'end_datetime', 'guests',
-            'stops',
-        )
+        fields = '__all__'
