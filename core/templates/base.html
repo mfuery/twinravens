@@ -5,8 +5,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta charset='UTF-8'>
-    <title>TomTom JavaScript SDK - Switching Tiles</title>
+    <title>Twin Ravens</title>
     <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel='stylesheet' type='text/css' href={% static "map.css" %} />
     <link rel='stylesheet' type='text/css' href={% static "elements.css" %}>
     <script src={% static "tomtom.min.js" %}></script>
@@ -25,6 +26,6 @@
 <body class="use-all-space">
 <div id="root"></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-{#{% render_bundle 'main' %}#}
+{% render_bundle 'main' %}
 </body>
 </html>

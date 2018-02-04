@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-// import '../../sass/main.scss';
+import '../sass/main.scss';
 import App from './app.jsx';
 import {BrowserRouter} from 'react-router-dom';
 import {csrf_token} from './lib/utils';

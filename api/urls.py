@@ -26,7 +26,6 @@ router.register('trips', TripViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/',
-         include('rest_framework.urls'), name='rest_framework'),
+    path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
     re_path('trip-itinerary/(?P<trip_pk>[0-9])/', trip_itinerary),
 ]
