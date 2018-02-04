@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import Link from "react-router-dom/es/Link";
 
 class Card extends React.Component {
   render() {
@@ -54,7 +55,7 @@ export default class Dash extends React.Component {
     return (<div className={"dash-container"}>
       <div className={"row"}>
         <div className={"create-button col"}>
-          <a className="waves-effect waves-light btn">Create New Trip</a>
+          <Link to={"/create_trip"} className="waves-effect waves-light btn">Create New Trip</Link>
         </div>
       </div>
       {/*<div className={"create-button"}>Create New Trip</div>*/}
