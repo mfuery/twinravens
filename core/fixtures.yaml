@@ -1,0 +1,78 @@
+- model: core.User
+  fields:
+    id: 1
+    email: mfuery@gmail.com
+    name: Michael F.
+    phone: 5103253941
+    date_joined: 2018-02-03T12:00:00-08:00
+- model: core.User
+  fields:
+    id: 2
+    email: porfirio84@gmail.com
+    name: Julian T.
+    phone: 5105555555
+    date_joined: 2018-02-03T12:00:00-08:00
+- model: core.User
+  fields:
+    id: 3
+    email: jkang@email.com
+    name: John K.
+    phone: 4155555432
+    date_joined: 2018-02-03T12:00:00-08:00
+- model: core.User
+  fields:
+    id: 4
+    email: emily@email.com
+    name: Emily S.
+    phone: 4155555555
+    date_joined: 2018-02-03T12:00:00-08:00
+
+- model: core.Trip
+  fields:
+    name: Sakura Trip
+    host: 4
+    start_datetime: 2018-04-05T09:00:00+09:00
+    end_datetime: 2018-04-16T09:00:00+09:00
+- model: core.Trip
+  fields:
+    name: Vietnam
+    host: 1
+    start_datetime: 2018-05-01T09:00:00+09:00
+    end_datetime: 2018-05-15T09:00:00+09:00
+
+- model: core.Location
+  fields:
+    name: Tokyo Dome
+    address: 1 Chome-3-61 Kōraku, Bunkyō-ku, Tōkyō-to 112-0004, Japan
+    lat: 35.7055214
+    lon: 139.7517324
+- model: core.Location
+  fields:
+    name: Imperial Palace 皇居
+    address: Japan, 〒100-8111 Tōkyō-to, Chiyoda-ku, Chiyoda, 1−１
+    lat: 35.6851181
+    lon: 139.7528486
+- model: core.Location
+  fields:
+    name: Ginza District 銀座
+    address: Chūō, Tokyo 104-0061
+    lat: 35.6695585
+    lon: 139.7611065
+- model: core.Location
+  fields:
+    name: Marunouchi Hotel 丸ノ内 ホテル
+    address: 1 Chome-6-3 Marunouchi, Chiyoda-ku, Tōkyō-to 100-0005, Japan
+    lat: 35.6809641
+    lon: 139.7643277
+- model: core.Location
+  fields:
+    name: Saigon City River Tour
+    address: Room 4, IBC Building, 1A Me Linh square | Ben Nghe Ward, Dist 1, Ho Chi Minh City 700000, Vietnam
+    lat: 10.775360
+    lon: 106.706700
+#- model: core.Location
+#  fields:
+#    name:
+#    address:
+#    lat:
+#    lon:
