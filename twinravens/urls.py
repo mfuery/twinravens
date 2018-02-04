@@ -21,5 +21,6 @@ from core.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    re_path(r'.', index),
+    path('', index),
+    # re_path(r'.*', index),
 ]

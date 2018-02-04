@@ -6,6 +6,7 @@ import Dash from './views/dash.jsx';
 import TopNav from './views/topnav.jsx';
 import TripStore from './stores/tripStore';
 import wrapper from './views/map.jsx';
+import CreateTrip from "./views/createTrip.jsx";
 
 class Container extends React.Component {
   render() {
@@ -26,8 +27,13 @@ class App extends Listener {
           <Route exact path={'/'} component={() => <Dash
             tripStore={this.state.model.state.tripStore}
           />}/>
+          <Route exact path={'/create_trip'} component={() => <CreateTrip
+            tripStore={this.state.model.state.tripStore}
+            tripActions={this.state.model.actions.tripStore}
+          />}/>
           <Route exact path={'/maptest'}
-                 component={() => <TomTom/>} />
+                 component={() => <TomTom/>}
+          />
           {/*<Route path={urls.ESTIMATES} component={() => <SampleCompoent*/}
           {/*/>}/>*/}
         </Switch>
