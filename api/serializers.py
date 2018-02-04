@@ -32,6 +32,18 @@ class TripSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CreateTripSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = '__all__'
+
+
+class CreateStopSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stop
+        fields = '__all__'
+
+
 class GpsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gps

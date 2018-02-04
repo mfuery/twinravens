@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 
 from core.models import Location, Stop, Trip, User, Gps
 from .serializers import LocationSerializer, StopSerializer, TripSerializer, \
-    UserSerializer, GpsSerializer
+    UserSerializer, GpsSerializer, CreateTripSerializer, CreateStopSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -23,6 +23,13 @@ class StopViewSet(viewsets.ModelViewSet):
     """
     queryset = Stop.objects.all().order_by('when')
     serializer_class = StopSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = CreateStopSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class StopDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -50,11 +57,21 @@ class TripViewSet(viewsets.ModelViewSet):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = CreateTripSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 @api_view(['GET'])
 def everything(request):
     trips = Trip.objects.all()
     trip_itinerary_data = []
+    users = UserSerializer(User.objects.all(), many=True).data
+    stops = StopSerializer(Stop.objects.all(), many=True).data
+    locations = LocationSerializer(Location.objects.all(), many=True).data
     for trip in trips:
         try:
             # guest_list = trip.guests.all()
@@ -66,7 +83,7 @@ def everything(request):
             continue
 
     if request.method == 'GET':
-        return Response(trip_itinerary_data)
+        return Response({'trips': trip_itinerary_data, 'users': users, 'stops': stops, 'locations': locations})
 
 
 @api_view(['GET'])
