@@ -54,15 +54,19 @@ class TripViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def everything(request):
     trips = Trip.objects.all()
-    users = User.objects.all()
-    stops = Stop.objects.all()
-    locations = Location.objects.all()
-    return Response({
-        'trips': TripSerializer(trips, many=True).data,
-        'users': UserSerializer(users, many=True).data,
-        'stops': StopSerializer(stops, many=True).data,
-        'locations': LocationSerializer(locations, many=True).data,
-    })
+    trip_itinerary_data = []
+    for trip in trips:
+        try:
+            # guest_list = trip.guests.all()
+            # stops_list = trip.stops.all().order_by('when')
+
+            trip_itinerary_data.append(TripSerializer(trip).data),
+
+        except Trip.DoesNotExist:
+            continue
+
+    if request.method == 'GET':
+        return Response(trip_itinerary_data)
 
 
 @api_view(['GET'])
