@@ -3,6 +3,7 @@ import React from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Listener from './listener';
 import Dash from './views/dash.jsx';
+import TopNav from './views/topnav.jsx';
 
 
 class App extends Listener {
@@ -11,6 +12,7 @@ class App extends Listener {
     if (true) {
       // component routes here
       return (<div className="app-container">
+        <TopNav/>
         <Switch>
           <Route exact path={'/'} component={() => <Dash
           />}/>
