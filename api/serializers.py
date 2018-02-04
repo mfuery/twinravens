@@ -3,7 +3,7 @@ from rest_framework import serializers
 from core.models import Gps, Location, Stop, Trip, User
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
@@ -24,6 +24,9 @@ class StopSerializer(serializers.ModelSerializer):
 
 
 class TripSerializer(serializers.ModelSerializer):
+    guests = UserSerializer(many=True)
+    stops = StopSerializer(many=True)
+
     class Meta:
         model = Trip
         fields = '__all__'
