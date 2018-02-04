@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react'
 import ReactDOM from 'react-dom'
 
-import cache from '../lib/ScriptCache'
+// import cache from '../lib/ScriptCache'
 import Api from '../lib/api'
 
 const defaultMapConfig = {};
