@@ -5,7 +5,7 @@ const MinifyPlugin = require('babel-minify-webpack-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
-const BUILD_DIR = path.resolve(__dirname, 'js/build');
+const BUILD_DIR = path.resolve(__dirname, 'assets/js/build');
 
 const config = merge(common, {
   output: {

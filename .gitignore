@@ -9,3 +9,4 @@ css/
 *.log
 .env
 staticfiles
+build/
