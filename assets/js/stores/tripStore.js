@@ -7,6 +7,7 @@ export default createStore({
   actions: ['createTrip', 'searchLoc'],
   state: (initialState, {createTrip, searchLoc}) => {
     let init = ajax('/api/everything', null, 'GET').map(x => x);
+
     let searchLocStream = searchLoc.flatMap(x => {
       let p = tomtom.fuzzySearch().key("c26Y46QwvfTgsAirK4Nh0w8YokZJ3XGq").query(x).go();
       return kefir.fromPromise(p);
@@ -16,7 +17,9 @@ export default createStore({
 
     let createTripStream = createTrip.flatMap(x => {
       console.log(x);
-      return ajax('/api/trips', x);
+      x['host'] = 1;
+      x['stops'] = [1];
+      return ajax('/api/trips/', x);
     }).map(x => x);
 
     return transform({
