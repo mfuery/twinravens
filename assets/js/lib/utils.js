@@ -95,3 +95,22 @@ export function csrf_token() {
     return cookieValue;
   })('csrftoken');
 };
+
+
+export function geoFindMe() {
+  if (!navigator.geolocation){
+    console.log("This browser has no geolocation API");
+    return false;
+  }
+
+  function success(position) {
+    let latitude  = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    return [latitude, longitude]
+  }
+
+  navigator.geolocation.getCurrentPosition(success, function() {
+    console.log("Can not get lat/lon");
+    return false;
+  });
+}
