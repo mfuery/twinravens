@@ -26,11 +26,21 @@ class StopViewSet(viewsets.ModelViewSet):
     serializer_class = StopSerializer
 
 
+class StopDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Stop.objects.all()
+    serializer_class = StopSerializer
+
+
 class LocationViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list` and `detail` actions.
     """
     queryset = Location.objects.all().order_by('name')
+    serializer_class = LocationSerializer
+
+
+class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Location.objects.all()
     serializer_class = LocationSerializer
 
 
