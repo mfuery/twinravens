@@ -9,7 +9,6 @@ class App extends Listener {
   render() {
     // set up loading state
     if (true) {
-        console.log("YAY")
       // component routes here
       return (<div className="app-container">
         <Switch>
