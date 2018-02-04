@@ -52,9 +52,15 @@ LOGGING = {
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': False,
-        'STATS_FILE': base_dir_join('webpack-stats-prod.json'),
         'POLL_INTERVAL': 0.5,
         'TIMEOUT': None,
-        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+        'IGNORE': ['.+\.hot-update.js', '.+\.map'],
     }
 }
+
+WEBPACK_LOADER.update({
+    'PROD': {
+        'BUNDLE_DIR_NAME': base_dir_join(BASE_DIR, 'assets', 'js', 'build'),
+        'STATS_FILE': base_dir_join('webpack-stats-prod.json')
+    }
+})
