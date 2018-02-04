@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 
@@ -47,4 +49,4 @@ class Gps(models.Model):
     lat = models.FloatField()
     lon = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=datetime.now)

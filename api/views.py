@@ -26,11 +26,21 @@ class StopViewSet(viewsets.ModelViewSet):
     serializer_class = StopSerializer
 
 
+class StopDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Stop.objects.all()
+    serializer_class = StopSerializer
+
+
 class LocationViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list` and `detail` actions.
     """
     queryset = Location.objects.all().order_by('name')
+    serializer_class = LocationSerializer
+
+
+class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Location.objects.all()
     serializer_class = LocationSerializer
 
 
@@ -69,8 +79,10 @@ def trip_itinerary(request, trip_pk):
         trip_itinerary_data = {
             'trip': TripSerializer(trip).data,
         }
-        trip_itinerary_data['trip']['guests'] = GuestSerializer(guest_list, many=True).data
-        trip_itinerary_data['trip']['stops'] = StopSerializer(stops_list, many=True).data
+        trip_itinerary_data['trip']['guests'] = GuestSerializer(guest_list,
+                                                                many=True).data
+        trip_itinerary_data['trip']['stops'] = StopSerializer(stops_list,
+                                                              many=True).data
     except Trip.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -97,17 +109,31 @@ class TripDetail(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
 
 
-class GpsList(APIView):
-    """
-    List all snippets, or create a new snippet.
-    """
+@api_view(['GET'])
+def gps_all(request):
+    records = Gps.objects.all().order_by('-timestamp')
+    serializer = GpsSerializer(records, many=True)
+    return Response(serializer.data)
 
-    def get(self, request, format=None):
-        snippets = Gps.objects.all()
-        serializer = GpsSerializer(snippets, many=True)
+
+@api_view(['GET', 'POST'])
+def gps(request):
+    if request.method == 'GET':
+        records = Gps.objects.raw("""
+            SELECT id, user_id, lat, lon, timestamp FROM core_gps
+            WHERE timestamp IN (
+              SELECT MAX(timestamp) FROM core_gps
+              GROUP BY user_id
+            )
+            GROUP BY id, user_id, lat, lon, timestamp
+            ORDER BY timestamp DESC
+        """)
+        print(len(list(records)))
+
+        serializer = GpsSerializer(records, many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
+    elif request.method == 'POST':
         serializer = GpsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -131,13 +157,6 @@ class GpsDetail(APIView):
         serializer = GpsSerializer(snippet)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = GpsSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # def delete(self, request, pk, format=None):
     #     snippet = self.get_object(pk)
