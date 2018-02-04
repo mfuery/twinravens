@@ -50,7 +50,7 @@ LOGGING = {
 }
 
 WEBPACK_LOADER = {
-    'PROD': {
+    'DEFAULT': {
         'CACHE': False,
         'STATS_FILE': base_dir_join('webpack-stats-prod.json'),
         'POLL_INTERVAL': 0.5,
