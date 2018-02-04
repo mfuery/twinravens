@@ -42,7 +42,7 @@
 
 - model: core.Location
   fields:
-    name: Tokyo Dome
+    name: Tokyo Dome 東京ドーム
     address: 1 Chome-3-61 Kōraku, Bunkyō-ku, Tōkyō-to 112-0004, Japan
     lat: 35.7055214
     lon: 139.7517324
