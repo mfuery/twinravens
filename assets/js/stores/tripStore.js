@@ -7,17 +7,17 @@ export default createStore({
   state: (initialState, {createTrip}) => {
     let init = ajax('/api/trips', null, 'GET').map(x => x);
 
-    let createTripStream = createTrip.flatMap(x => {
-        return ajax('/api/trips', JSON.stringify({}));
-    });
+    // let createTripStream = createTrip.flatMap(x => {
+    //     return ajax('/api/trips', JSON.stringify({}));
+    // });
     return transform({
         trips: [],
         loading: true,
       },
-      createTripStream, (prev, res) => {
-        // prev = load(prev, res);
-        return prev;
-      },
+      // createTripStream, (prev, res) => {
+      //   // prev = load(prev, res);
+      //   return prev;
+      // },
       init, (prev, res) => {
         // prev = load(prev, res);
         prev.trips = res;
