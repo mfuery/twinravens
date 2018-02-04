@@ -1,5 +1,12 @@
+@import "abstracts/_abstracts";
+@import "components/_components";
+@import "mixins/_mixins";
+
+
 body {
   line-height: 1.4;
+  color: #333333;
+  font-family: sans-serif;
 }
 
 *, *::before, *::after {
