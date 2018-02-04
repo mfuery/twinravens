@@ -52,6 +52,7 @@ export default class CreateTrip extends React.Component {
           placeholder={"End Date Time"}
           onInput={this.setEndDate.bind(this)}
         />
+
         <CheckBoxes
           choices={this.props.tripStore.users}
           onInput={this.setGuests.bind(this)}

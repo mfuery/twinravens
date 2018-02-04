@@ -21,6 +21,7 @@ class Card extends React.Component {
               <p>{this.props.description}</p>
           </div>
           <div className="card-action">
+            <Link to={"maptest"}>Map</Link>
             {/*<a href="#">This is a link</a>*/}
           </div>
         </div>
