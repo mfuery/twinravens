@@ -2,7 +2,8 @@ from .base import *
 import dj_database_url
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = dotenv.get('SECRET_KEY')
+# python 3 doesn't support dotenv
+# SECRET_KEY = dotenv.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -11,10 +12,39 @@ DEBUG = False
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-STATICFILES_DIRS.append(
-    os.path.join(BASE_DIR, 'frontend', 'build'),
-)
-
 ALLOWED_HOSTS = [
     '*'
 ]
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console'],
+    },
+    'formatters': {
+        'simple': {
+            'format': '%(message)s'
+        },
+        'verbose': {
+            'format': '[%(levelname)s - %(created)s], file:%(module)s.py, func:%(funcName)s, ln:%(lineno)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+
+    'loggers': {
+        # 'django.db.backends': {
+        #     'handlers': ['console'],
+        #     'level': 'DEBUG'
+        # }
+    }
+}

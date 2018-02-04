@@ -8,3 +8,4 @@ webpack-stats-dev.json
 css/
 *.log
 .env
+staticfiles

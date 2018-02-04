@@ -16,6 +16,7 @@ prompt-toolkit==1.0.15
 psycopg2==2.7.3.2
 ptyprocess==0.5.2
 Pygments==2.2.0
+python-dotenv==0.7.1
 pytz==2017.3
 PyYAML==3.12
 redis==2.10.6

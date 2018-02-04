@@ -69,8 +69,8 @@ def everything(request):
 @api_view(['GET'])
 def trip_itinerary(request, trip_pk):
     """
-        Retrieve, update or delete a code snippet.
-        """
+    Retrieve, update or delete a code snippet.
+    """
     try:
         trip = Trip.objects.get(pk=trip_pk)
 
@@ -120,7 +120,6 @@ def gps(request):
             GROUP BY id, user_id, lat, lon, timestamp
             ORDER BY timestamp DESC
         """)
-        print(len(list(records)))
 
         serializer = GpsSerializer(records, many=True)
         return Response(serializer.data)
