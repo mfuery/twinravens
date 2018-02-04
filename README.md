@@ -7,6 +7,7 @@ Travel planning with friends with real-time updates on location and ETA.
 ```
 pip install -r requirements.txt
 npm install
+npm start
 ./manage.py migrate
 ./manage.py loaddata data.json
 ./manage.py runserver
