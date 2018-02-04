@@ -198,11 +198,11 @@ label.checkbox-label  {
 
 .sidepanel input:required:invalid,
 .sidepanel input:focus:invalid {
-    background-image: url(./img/invalid.png);
+    /*Todo missing img*/
 }
 
 .sidepanel input:required:valid + label:before {
-    background-image: url(./img/valid.png);
+    /*Todo missing img*/
 }
 .sidepanel select {
     width: 100%;

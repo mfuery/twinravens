@@ -74,9 +74,6 @@ def everything(request):
     locations = LocationSerializer(Location.objects.all(), many=True).data
     for trip in trips:
         try:
-            # guest_list = trip.guests.all()
-            # stops_list = trip.stops.all().order_by('when')
-
             trip_itinerary_data.append(TripSerializer(trip).data),
 
         except Trip.DoesNotExist:
@@ -89,25 +86,17 @@ def everything(request):
 @api_view(['GET'])
 def trip_itinerary(request, trip_pk):
     """
-        Retrieve, update or delete a code snippet.
-        """
+    Retrieve, update or delete a code snippet.
+    """
     try:
         trip = Trip.objects.get(pk=trip_pk)
-        guest_list = trip.guests.all()
-        stops_list = trip.stops.all().order_by('when')
 
-        trip_itinerary_data = {
-            'trip': TripSerializer(trip).data,
-        }
-        trip_itinerary_data['trip']['guests'] = GuestSerializer(guest_list,
-                                                                many=True).data
-        trip_itinerary_data['trip']['stops'] = StopSerializer(stops_list,
-                                                              many=True).data
     except Trip.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        return Response(trip_itinerary_data)
+        serializer = TripSerializer(trip)
+        return Response(serializer.data)
 
     return Response(status.HTTP_400_BAD_REQUEST)
 
@@ -148,7 +137,6 @@ def gps(request):
             GROUP BY id, user_id, lat, lon, timestamp
             ORDER BY timestamp DESC
         """)
-        print(len(list(records)))
 
         serializer = GpsSerializer(records, many=True)
         return Response(serializer.data)
@@ -176,9 +164,3 @@ class GpsDetail(APIView):
         snippet = self.get_object(pk)
         serializer = GpsSerializer(snippet)
         return Response(serializer.data)
-
-
-    # def delete(self, request, pk, format=None):
-    #     snippet = self.get_object(pk)
-    #     snippet.delete()
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
