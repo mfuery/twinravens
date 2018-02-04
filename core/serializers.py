@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from core.models import Stop, Trip, User
+from core.models import Stop, Trip, User, Gps
 
 
 class UserSerializer(ModelSerializer):
@@ -18,10 +18,16 @@ class TripSerializer(ModelSerializer):
 class GuestSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'name', 'profile_picture',)
+        fields = '__all__'
 
 
 class StopSerializer(ModelSerializer):
     class Meta:
         model = Stop
+        fields = '__all__'
+
+
+class GpsSerializer(ModelSerializer):
+    class Meta:
+        model = Gps
         fields = '__all__'
