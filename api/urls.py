@@ -2,8 +2,8 @@ from django.conf.urls import include
 from django.urls import path, re_path
 from rest_framework import routers
 
-from .views import LocationViewSet, StopViewSet, TripViewSet, UserViewSet, \
-    trip_itinerary
+from .views import LocationViewSet, StopViewSet, TripDetail, TripViewSet, \
+    UserViewSet, trip_itinerary
 
 user_list = UserViewSet.as_view({
     'get': 'list'
@@ -28,4 +28,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
     re_path('trip-itinerary/(?P<trip_pk>[0-9])/', trip_itinerary),
+    re_path('trips/(?P<trip_pk>[0-9])/', TripDetail.as_view()),
 ]

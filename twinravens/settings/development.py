@@ -9,3 +9,6 @@ DATABASES = {
        'PORT': '5432'
    }
 }
+
+if os.path.exists(os.path.join(os.path.dirname(__file__), 'local_settings.py')):
+    from .local_settings import *

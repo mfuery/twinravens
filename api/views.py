@@ -1,4 +1,4 @@
-from rest_framework import generics, renderers, status, viewsets
+from rest_framework import generics, renderers, status, viewsets, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -55,26 +55,36 @@ def trip_itinerary(request, trip_pk):
         Retrieve, update or delete a code snippet.
         """
     try:
-        guests = []
-        stops = []
         trip = Trip.objects.get(pk=trip_pk)
         guest_list = trip.guests.all()
         stops_list = trip.stops.all().order_by('when')
 
-        for a in guest_list:
-            guests.append(GuestSerializer(a).data)
-        for n in stops_list:
-            stops.append(StopSerializer(n).data)
-
         trip_itinerary_data = {
             'trip': TripSerializer(trip).data,
         }
-        trip_itinerary_data['trip']['guests'] = guests
-        trip_itinerary_data['trip']['stops'] = stops
+        trip_itinerary_data['trip']['guests'] = GuestSerializer(guest_list, many=True).data
+        trip_itinerary_data['trip']['stops'] = StopSerializer(stops_list, many=True).data
     except Trip.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         return Response(trip_itinerary_data)
 
-    # return Response(status.HTTP_400_BAD_REQUEST)
+    return Response(status.HTTP_400_BAD_REQUEST)
+
+
+class TripDetail(mixins.RetrieveModelMixin,
+                 mixins.UpdateModelMixin,
+                 mixins.DestroyModelMixin,
+                 generics.GenericAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

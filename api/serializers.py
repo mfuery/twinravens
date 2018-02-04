@@ -9,15 +9,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class StopSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Stop
-        fields = '__all__'
-
-
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
+        fields = '__all__'
+
+
+class StopSerializer(serializers.ModelSerializer):
+    location = LocationSerializer()
+
+    class Meta:
+        model = Stop
         fields = '__all__'
 
 
