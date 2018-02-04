@@ -42,7 +42,7 @@ class Trip(models.Model):
     end_datetime = models.DateTimeField(auto_now_add=True)
     guests = models.ManyToManyField(User, related_name='guests')
     host = models.ForeignKey(User, on_delete=models.CASCADE, related_name='host')
-    stops = models.ManyToManyField(Stop)
+    stops = models.ManyToManyField(Stop, blank=True)
 
 
 class Gps(models.Model):
