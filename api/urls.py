@@ -30,11 +30,12 @@ urlpatterns = [
     path('', include(router.urls)),
     path('everything/', everything),
     path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
+    re_path(r'trip-itineraries/(?P<trip_pk>[0-9])/', trip_itinerary),
     re_path(r'trip-itinerary/(?P<trip_pk>[0-9])/', trip_itinerary),
     re_path(r'trips/(?P<trip_pk>[0-9])/', TripDetail.as_view()),
     re_path(r'stops/(?P<pk>[0-9])/', StopDetail.as_view()),
     re_path(r'locations/(?P<pk>[0-9])/', LocationDetail.as_view()),
     path(r'gps/all', gps_all),
-    path('gps/', gps)
+    path('gps/', gps),
 
 ]
