@@ -1,9 +1,11 @@
-from rest_framework import generics, renderers, status, viewsets, mixins
+from django.http import Http404
+from rest_framework import generics, mixins, status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from core.models import Location, Stop, Trip, User
-from core.serializers import GuestSerializer
+from core.models import Location, Stop, Trip, User, Gps
+from core.serializers import GuestSerializer, GpsSerializer
 from .serializers import LocationSerializer, StopSerializer, TripSerializer, \
     UserSerializer
 
@@ -38,6 +40,20 @@ class TripViewSet(viewsets.ModelViewSet):
     """
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
+
+
+@api_view(['GET'])
+def everything(request):
+    trips = Trip.objects.all()
+    users = User.objects.all()
+    stops = Stop.objects.all()
+    locations = Location.objects.all()
+    return Response({
+        'trips': TripSerializer(trips, many=True).data,
+        'users': GuestSerializer(users, many=True).data,
+        'stops': StopSerializer(stops, many=True).data,
+        'locations': LocationSerializer(locations, many=True).data,
+    })
 
 
 @api_view(['GET'])
@@ -81,4 +97,49 @@ class TripDetail(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
 
 
-class Gps
+class GpsList(APIView):
+    """
+    List all snippets, or create a new snippet.
+    """
+
+    def get(self, request, format=None):
+        snippets = Gps.objects.all()
+        serializer = GpsSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = GpsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GpsDetail(APIView):
+    """
+    Retrieve, update or delete a snippet instance.
+    """
+
+    def get_object(self, pk):
+        try:
+            return Gps.objects.get(pk=pk)
+        except Gps.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = GpsSerializer(snippet)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = GpsSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # def delete(self, request, pk, format=None):
+    #     snippet = self.get_object(pk)
+    #     snippet.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
