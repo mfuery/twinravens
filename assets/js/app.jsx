@@ -32,7 +32,8 @@ class App extends Listener {
             tripActions={this.state.model.actions.tripStore}
           />}/>
           <Route exact path={'/maptest'}
-                 component={() => <TomTom/>} />
+                 component={() => <TomTom/>}
+          />
           {/*<Route path={urls.ESTIMATES} component={() => <SampleCompoent*/}
           {/*/>}/>*/}
         </Switch>

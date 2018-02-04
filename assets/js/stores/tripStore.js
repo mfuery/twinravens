@@ -4,8 +4,8 @@ import kefir from 'kefir';
 
 
 export default createStore({
-  actions: ['createTrip', 'searchLoc'],
-  state: (initialState, {createTrip, searchLoc}) => {
+  actions: ['createTrip', 'searchLoc', 'getItin'],
+  state: (initialState, {createTrip, searchLoc, getItin}) => {
     let init = ajax('/api/everything', null, 'GET').map(x => x);
 
     let searchLocStream = searchLoc.flatMap(x => {
@@ -20,17 +20,28 @@ export default createStore({
       x['host'] = 1;
       x['stops'] = [1];
       return ajax('/api/trips/', x);
-    }).map(x => x);
+    });
+
+    let getItinStream = getItin.flatMap(x => {
+      return ajax(`/api/trip-itinerary/${x}`, null, 'GET');
+    });
 
     return transform({
         trips: [],
         users: [],
         locations: [],
         stops: [],
+        itin: null,
         loading: true,
       },
       createTripStream, (prev, res) => {
         console.log(res);
+        return prev;
+      },
+      getItinStream, (prev, res) => {
+        console.log(res);
+        prev.itin = res;
+        prev.itinPage = res.id;
         return prev;
       },
       init, (prev, res) => {
