@@ -40,15 +40,6 @@ class TripViewSet(viewsets.ModelViewSet):
     serializer_class = TripSerializer
 
 
-class TripItinerary(generics.GenericAPIView):
-    queryset = Trip.objects.all()
-    renderer_classes = (renderers.StaticHTMLRenderer,)
-
-    def get(self, request, *args, **kwargs):
-        snippet = self.get_object()
-        return Response(snippet.highlighted)
-
-
 @api_view(['GET'])
 def trip_itinerary(request, trip_pk):
     """
@@ -88,3 +79,6 @@ class TripDetail(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+class Gps
