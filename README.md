@@ -7,15 +7,22 @@ Travel planning with friends with real-time updates on location and ETA.
 ```
 pip install -r requirements.txt
 npm install
-npm start
 ./manage.py migrate
 ./manage.py loaddata data.json
+npm start
+```
+
+Open another terminal and do:
+
+```
 ./manage.py runserver
 ```
 
 ## API
   
 ```
+Get everything: http://127.0.0.1:8000/api/everything/
+
 http://127.0.0.1:8000/api/
 
 GET /api/

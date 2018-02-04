@@ -3,7 +3,7 @@ from django.urls import path, re_path
 from rest_framework import routers
 
 from .views import LocationViewSet, StopViewSet, TripDetail, TripViewSet, \
-    UserViewSet, trip_itinerary, everything
+    UserViewSet, everything, gps, trip_itinerary, gps_all
 
 user_list = UserViewSet.as_view({
     'get': 'list'
@@ -20,6 +20,7 @@ Again, if we need more control over the API URLs we can simply drop down to
 using regular class-based views, and writing the URL conf explicitly."""
 router = routers.DefaultRouter()
 router.register('guests', UserViewSet)
+router.register('users', UserViewSet)
 router.register('locations', LocationViewSet)
 router.register('stops', StopViewSet)
 router.register('trips', TripViewSet)
@@ -28,7 +29,9 @@ urlpatterns = [
     path('', include(router.urls)),
     path('everything/', everything),
     path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
-    re_path('trip-itinerary/(?P<trip_pk>[0-9])/', trip_itinerary),
-    re_path('trips/(?P<trip_pk>[0-9])/', TripDetail.as_view()),
-    re_path('trips/(?P<trip_pk>[0-9])/', TripDetail.as_view()),
+    re_path(r'trip-itinerary/(?P<trip_pk>[0-9])/', trip_itinerary),
+    re_path(r'trips/(?P<trip_pk>[0-9])/', TripDetail.as_view()),
+    path(r'gps/all', gps_all),
+    path('gps/', gps)
+
 ]
