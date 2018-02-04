@@ -68,10 +68,10 @@ export const wrapper = (options) => (WrappedComponent) => {
         mapComponent: this.refs.map
       });
       return <div>
-        <WrappedComponent {...props}/>
         <div id="parent">
           <div id="map" ref="map" className="use-all-space"/>
         </div>
+        <WrappedComponent {...props}/>
       </div>;
     }
   }
