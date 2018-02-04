@@ -36,6 +36,7 @@ export default class Dash extends React.Component {
     let cards = [
     ];
     cards = cards.concat(trips);
+    console.log(cards);
     return cards.map(x => {
       return <Card
         id={x.id}

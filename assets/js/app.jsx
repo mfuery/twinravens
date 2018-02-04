@@ -8,9 +8,35 @@ import TripStore from './stores/tripStore';
 import wrapper from './views/map.jsx';
 import CreateTrip from "./views/createTrip.jsx";
 
+
+class Card extends React.Component {
+  render() {
+    return (<div className="row">
+      <div className="col">
+        <div className="card">
+          <div className="card-image">
+            <img src={this.props.imageUrl}/>
+            {/*<span class="card-title">Card Title</span>*/}
+          </div>
+          <div className="card-content">
+            <span className="card-title">{moment(this.props.date).format('DDD MMM YYYY')}</span>
+            <span className="card-title">{this.props.name}</span>
+            <p>{this.props.description}</p>
+          </div>
+          <div className="card-action">
+            {/*<a href="#">This is a link</a>*/}
+            {/*<a href="#">This is a link</a>*/}
+          </div>
+        </div>
+      </div>
+    </div>);
+  }
+}
+
+
 class Container extends React.Component {
   render() {
-    return <div>TomTom Map</div>;
+    return <div></div>;
   }
 }
 const TomTom = wrapper({apiKey: 'c26Y46QwvfTgsAirK4Nh0w8YokZJ3XGq'})(Container);
